@@ -1,38 +1,43 @@
+<!DOCTYPE html>
 <html>
-<head>
-	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
-	
-</head>
+  <head>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+	  <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+	  <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+	  <title>
+    Lab2: Journey in Taiwan
+    </title>
+  </head>
+  
+<style>
+  body {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    background-color: white;
+  }
+  #container {
+    border:2px solid grey;
+    width 85%
+    margin:auto;
+  }
+  #map{
+    height:800px;
+    width:1200px;
+  }
+</style>
+  
 <body>
-
-	<style> 
-	body{ background-color:green;
-	};
-	</style>
-	
-	<h1><font color = "red">Important Place for me in Bangladesh</font></h1>
-	<div id='map' style="height:750px; width:1000px"></div>
-	<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
-	<script>
-		var map = L.map('map').setView([22.847185, 89.537649], 9);
-		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-		}).addTo(map);
-		
-		var Birth_place = L.marker([22.447105,89.390267]).addTo(map).bindPopup('<center><img src="http://www.photo.com.bd/main.php?g2_view=core.DownloadItem&g2_itemId=12889&g2_serialNumber=27" width="300" height="200" alt="BirthPlace"><br>Birth place_Bangladesh</br><br>Village called Hodda in southeastern of Bangladesh under the Koira Upozilla.</br>').openPopup();
-	              
-	        var Sundarban = L.marker([22.212822,89.249809]).addTo(map).bindPopup('<center><img src="http://www.grida.no/photolib/thumbs/0c67cdc9-0590-459e-a428-1a1a34e811c3/medium/mangrove-forest-lamu-kenya_d1d9.jpg" width="300" height="200" alt="Sundorban"><br>Biggest Mangrove froest</br><br>Situated at the southwestern part of Bangladesh.</br>').openPopup();  
-	        
-	        var Elementary_School = L.marker([22.810717,89.576421]).addTo(map).bindPopup('<center><img src="http://www.fatimahighschoolkhulna.edu.bd/wp-content/uploads/2015/09/DSC06450-700x380.jpg" width="300" height="200" alt="Fatima"><br>Fatima High school</br><br>Where I have studied from play to 3rd grade.</br>').openPopup();
-	        
-	        var Secondary_School = L.marker([22.812752,89.574069]).addTo(map).bindPopup('<center><img src="https://mw2.google.com/mw-panoramio/photos/medium/38627210.jpg" width="300" height="200" alt="Zillaschool"><br>Khulna Zilla School</br><br>Where I have studied from 3rd gread to 10th gread.</br>').openPopup();
-	
-		var higher_secondary = L.marker([22.809471,89.562785]).addTo(map).bindPopup('<center><img src="https://scontent.fash1-1.fna.fbcdn.net/hphotos-xfp1/v/t1.0-9/264952_226746720699222_5662475_n.jpg?oh=a6ecca236a5db6ac685d6d0a8700b04a&oe=5758A08D" width="300" height="200" alt="CityCollege"><br>Govt M M City College</br><br>I have completed my high school diploma here.</br>').openPopup();
-	
-		var khulna_uni = L.marker([22.802662,89.534605]).addTo(map).bindPopup('<center><img src="http://www.allbdjob.com/wp-content/uploads/2016/02/108431_Untitled-4-1-8.jpg" width="300" height="200" alt="KhulnaUniversity"><br>Khulna University</br><br>First Federal University in Khulna Division that established on 1991.</br>').openPopup();
-	
-		var Dhaka_Airport = L.marker([23.846919,90.402613]).addTo(map).bindPopup('<center><img src="http://www.asien.net/wp-content/uploads/2014/02/dhaka-airport.jpg" width="300" height="200" alt="Airport"><br>Hazarat Shahjalal International Airport</br><br>It was the only international airport till 2005.</br>').openPopup();
-	
-	</Script>
+  <h1 id = 'title'> All the Way South: My Journey in Taiwan </h1>
+  <div id = 'map'></div>
+    <script>
+      var map = L.map('map').setView([23.5515988,119.8971242],8);
+      L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    	attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+		  }).addTo(map);
+		  
+		  var popup = L.popup()
+		      .setLatLng([25.0689536,121.4730177])
+		      .setContent("<img src=http://globalriskinsights.com/wp-content/uploads/2015/09/T77255654-800x500_c.jpg>")
+		</script>
 </body>
+
 </html>
