@@ -1,18 +1,43 @@
-
+<!DOCTYPE html>
 <html>
-  <title>
-    Lab2 Web Page
-  </title>
-
+  <head>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+	  <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+	  <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+	  <title>
+    Lab2: Journey in Taiwan
+    </title>
+  </head>
+  
+<style>
+  body {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    background-color: white;
+  }
+  #container {
+    border:2px solid grey;
+    width 85%
+    margin:auto;
+  }
+  #map{
+    height:800px;
+    width:1200px;
+  }
+</style>
+  
 <body>
-  <h1>This is a page for testing
+  <h1 id = 'title'> All the Way South: My Journey in Taiwan </h1>
+  <div id = 'map'></div>
+    <script>
+      var map = L.map('map').setView([23.5515988,119.8971242],8);
+      L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    	attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+		  }).addTo(map);
+		  
+		  var popup = L.popup()
+		      .setLatLng([25.0689536,121.4730177])
+		      .setContent("<img src=http://globalriskinsights.com/wp-content/uploads/2015/09/T77255654-800x500_c.jpg>")
+		</script>
 </body>
 
-<style>
-  body{
-    background-color:green;
-    color:#fff;
-    text-align: center;
-    }
-</style>
 </html>
