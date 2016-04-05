@@ -29,14 +29,15 @@
   <h1 id = 'title'> All the Way South: My Journey in Taiwan </h1>
   <div id = 'map'></div>
     <script>
-      var map = L.map('map').setView([23.5515988,119.8971242],8);
-      L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-    	attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-		  }).addTo(map);
-		  
-		  var popup = L.popup()
-		      .setLatLng([25.0689536,121.4730177])
-		</script>
+    	var map = L.map('map').setView([23.5515988,119.8971242],8);
+    	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    		
+    	}).addTo(map);
+	L.marker([25.085651,121.4228205]).addTo(map)
+	.bindPopup('Taipei');
+	
+    </script>
 </body>
 
 </html>
