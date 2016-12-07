@@ -1,72 +1,44 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
-	  <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
-	  <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
-	  <title>
-    Lab2: Journey in Taiwan
-    </title>
-  </head>
-  
-<style>
-  body {
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    background-color: white;
-  }
-  #container {
-    border:2px solid grey;
-    width 85%
-    margin:auto;
-  }
-  #map{
-    height:800px;
-    width:1200px;
-    margin:auto;
-  }
-</style>
-  
-<body>
-  <h1 style="text-align:center"> All the Way South: My Journey in Taiwan </div>
-  <div id = 'map'></div>
-    <script>
-    	var map = L.map('map').setView([23.7118339,120.9517263],8);
-    	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-    		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    		
-    	}).addTo(map);
-	L.marker([25.085651,121.4228205]).addTo(map)
-	.bindPopup("<img src='http://www.skyscraperhalloffame.com/wp-content/uploads/2012/01/taipei_101.jpg'/>" +"Location#1: Taipei101" +"DAY1: Taipei 101 rises to a height of 508 metres and was the world's tallest building until the opening of the Burj Khalifa in Dubai. There is an observation platform from which you can enjoy the views, but choose a day when the building is not obscured in cloud! ");
-	L.marker([24.8550566,121.0921051]).addTo(map)
-	.bindPopup("<img src='http://www.taipei-airport.com/images/taoyuan-airport-terminal.jpg'/>" +"Location#2: Taoyuan International Airport");
-	L.marker([25.1111068,121.8350522]).addTo(map)
-	.bindPopup("<img src='http://www.mayrai.com/wp-content/uploads/2015/10/restaurants-on-hill-in-jiufen-taipei-city-hd-wallpaper-582474-750x410.jpg'/>" +"Location#3: Jiufen");
-	L.marker([23.8523405,120.9009428]).addTo(map)
-	.bindPopup("<img src='https://www.goway.com/media/uploads/asia/images/taiwan/sun_moon_lake/sun_moon_lake_taiwan2_1_hero.jpg'/>" +"Location#4: Sun Moon Lake");
-	L.marker([22.9740475,120.3322117]).addTo(map)
-	.bindPopup("<img src='http://bna-art.s3.amazonaws.com/www.bootsnall.com/articles/wp-content/uploads/2011/11/2-Kaohsiung-Station-Taiwan.jpg'/>" +"Location#5: Kaohsiung");
-	L.marker([21.9483357,120.7775629]).addTo(map)
-	.bindPopup("<img src='http://ap.ironman.com/~/media/cd1af299124d47dfb3393b3035a8dad3/taiwan%20kenting%20coastline.jpg?w=740&h=370&c=1'/>" +"Location#6: Kenting");
-	L.marker([22.0445923,121.5153158]).addTo(map)
-	.bindPopup("<img src='http://ngm.nationalgeographic.com/u/TvyamNb-BivtNwcoxtkc5xGBuGkIMh_nj4UJHQKuorvNwOLKOIrtqMxKuHQYAC0VLmw_pc7j0_cnUQ/'/>" +"Location#7: Orchid Island");
-	
-	var polyline = L.polyline([
-            [25.1111068,121.8350522],
-            [25.085651,121.4228205],
-            [24.8550566,121.0921051],
-            [23.8523405,120.9009428],
-            [22.9740475,120.3322117],
-            [21.9483357,120.7775629],
-            [22.0445923,121.5153158]
-            ],
-            {
-                color: 'red',
-                weight: 5,
-                opacity: .5,
-                lineJoin: 'round'
-            }
-            ).addTo(map);
-    </script>
-</body>
+import folium
+import pandas as pd
 
-</html>
+PHILLY_COORDINATES = (39.9816, -75.1495)
+crimedata = pd.read_csv(r'C:\Data\incident.csv')
+
+#for speed purpose
+MAX_RECORDS = 250
+
+#create empty map zoomed in on Temple University 
+map = folium.Map(location = PHILLY_COORDINATES, zoom_start = 12)
+
+#add a marker for every record in the filtered data, use a clustered view
+for each in crimedata[0:MAX_RECORDS].iterrows():
+    map.simple_marker(
+        location = [each[1]['Y'], each[1]['X']],
+        clustered_marker = True)
+        
+map.create_map(path='Crimemap1.html')
+
+#create a choropleth map using Folium
+
+#definition of the boundaries in the map
+district_geo = r'C:\Data\Boundaries_Division.geojson'
+
+#calculating total number of incidents per district
+crimedata2 = pd.DataFrame(crimedata['DC_DIST'].value_counts().astype(float))  
+crimedata2.to_json('crimeagg.json')  
+crimedata2 = crimedata2.reset_index()  
+crimedata2.columns = ['District', 'Number']
+
+#creation of the choropleth
+cm= folium.Map(location=PHILLY_COORDINATES, zoom_start=12)  
+cm.geo_json(geo_path = district_geo,  
+              data_out = 'crimeagg.json', 
+              data = crimedata2,
+              columns = ['District', 'Number'],
+              key_on = 'feature.properties.District',
+              fill_color = 'YlOrRd', 
+              fill_opacity = 0.7, 
+              line_opacity = 0.2,
+              legend_name = 'Number of incidents per district')
+
+cm.create_map(path='cm.html')
